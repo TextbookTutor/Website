@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6d1af87-d111-433c-85f0-d765b77d8a8b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/auth.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/Components/Login.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/Components/Navbar.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lib/db.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/courses/+page.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/courses/[slug]/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/+layout.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+layout.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/courses/[slug]/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/courses/[slug]/+page.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +62,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1731176925763</updated>
-      <workItem from="1731176926824" duration="10287000" />
+      <workItem from="1731176926824" duration="10572000" />
     </task>
     <servers />
   </component>

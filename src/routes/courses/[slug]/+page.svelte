@@ -32,7 +32,7 @@
                             <th>{i+1}</th>
                             <td>{module}</td>
                             <td>Other</td>
-                            <td><button class='btn' href="/join">
+                            <td><button class='btn'>
                                 Enter
                             </button></td>
                         </tr>
