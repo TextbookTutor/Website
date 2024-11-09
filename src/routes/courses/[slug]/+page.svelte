@@ -1,0 +1,46 @@
+<script>
+    import { page } from '$app/stores';
+    let chapters = [
+        {number:1, name:"Addition", modules:[1.1,1.2,1.3]},
+        {number:2, name:"Subtraction", modules:[2.1,2.2,2.3]},
+        {number:3, name:"Multiplication", modules:[3.1,3.2,3.3]},
+        {number:4, name:"Division", modules:[4.1,4.2,4.3]},
+
+    ]
+</script>
+
+<h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl px-5 lg:text-6xl dark:text-white">{$page.params.slug}
+</h1>
+
+{#each chapters as chapter}
+    <div tabindex="-1" class="collapse bg-base-200">
+        <div class="collapse-title text-xl font-medium">{chapter.name}</div>
+        <div class="collapse-content">
+            <div class="overflow-x-auto">
+                <table class="table table-zebra">
+                    <!-- head -->
+                    <thead>
+                    <tr>
+                        <th>Module</th>
+                        <th>Title</th>
+                        <th>Completion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {#each chapter.modules as module, i}
+                        <tr>
+                            <th>{i+1}</th>
+                            <td>{module}</td>
+                            <td>Other</td>
+                            <td><button class='btn' href="/join">
+                                Enter
+                            </button></td>
+                        </tr>
+                    {/each}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{/each}
