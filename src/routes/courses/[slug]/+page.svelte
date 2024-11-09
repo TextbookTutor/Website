@@ -18,23 +18,44 @@
         <div class="collapse-content">
             <div class="overflow-x-auto">
                 <table class="table table-zebra">
-                    <!-- head -->
                     <thead>
                     <tr>
                         <th>Module</th>
-                        <th>Title</th>
+                        <th>Type</th>
                         <th>Completion</th>
+                        <th>Score</th>
+
                     </tr>
                     </thead>
                     <tbody>
-                    {#each chapter.modules as module, i}
+                    {#each chapter.modules as module}
                         <tr>
-                            <th>{i+1}</th>
                             <td>{module}</td>
-                            <td>Other</td>
-                            <td><button class='btn'>
-                                Enter
-                            </button></td>
+                            <td>Activity</td>
+                            <td>100%</td>
+                            <td>60%</td>
+                            <td>
+                                <a href="/courses/{$page.params.slug}/quiz">
+                                    <button class="btn btn-success">
+                                        Start
+                                    </button>
+                                </a>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>{module}</td>
+                            <td>Quiz</td>
+                            <td>50%</td>
+                            <td/>
+                            <td>
+                                <a href="courses//quiz">
+                                    <button class="btn btn-success">
+                                        Start
+                                    </button>
+                                </a>
+                            </td>
+
                         </tr>
                     {/each}
 
