@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6d1af87-d111-433c-85f0-d765b77d8a8b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/routes/courses/[slug]/[module]/+page.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/Components/Login.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/Components/Login.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/Components/Navbar.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/Components/Navbar.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+page.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/courses/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/courses/+page.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/courses/[slug]/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/courses/[slug]/+page.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/courses/[slug]/[module]/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/courses/[slug]/[module]/+page.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +68,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1731176925763</updated>
-      <workItem from="1731176926824" duration="11738000" />
+      <workItem from="1731176926824" duration="12760000" />
     </task>
     <servers />
   </component>

@@ -1,6 +1,5 @@
 <script>
     import Login from "$lib/Components/Login.svelte";
-    import { SignIn } from "@auth/sveltekit/components"
     let loggedIn = true;
 </script>
 

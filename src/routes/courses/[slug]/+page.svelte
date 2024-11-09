@@ -1,5 +1,7 @@
 <script>
     import { page } from '$app/stores';
+    import '../../../app.css';
+
     let chapters = [
         {number:1, name:"Addition", modules:[1.1,1.2,1.3]},
         {number:2, name:"Subtraction", modules:[2.1,2.2,2.3]},

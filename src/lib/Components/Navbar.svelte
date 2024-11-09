@@ -1,5 +1,7 @@
 <script>
     let loggedIn = true;
+    import '../../app.css';
+
 </script>
 
 <div class="navbar bg-base-100">

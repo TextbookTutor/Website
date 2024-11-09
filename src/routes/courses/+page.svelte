@@ -2,10 +2,10 @@
     // Sample data for courses
     import {page} from "$app/stores";
 
-    let courses = [
+        let courses = [
         {name:"Math 234", lastVisited:"2024-01-01", progress:"80%",id:"abc123"},
-        {name:"Math 232", lastVisited:"2024-01-01", progress:"80%", id:"123abc"},
-    ];
+                {name:"Math 232", lastVisited:"2024-01-01", progress:"80%", id:"123abc"},
+            ];
 </script>
 
 
