@@ -10,18 +10,18 @@
             answerIndex: 0,
         },
             {
-                question: "What is 2+2?",
+                question: "What is 2+3?",
                 questionOptions: ["4","3","5","2"],
                 answerIndex: 0,
             },
             {
-                question: "What is 2+2?",
+                question: "What is 2+1?",
                 questionOptions: ["4","3","5","2"],
                 answerIndex: 0,
             }
             ,
             {
-                question: "What is 2+2?",
+                question: "What is 2+0?",
                 questionOptions: ["4","3","5","2"],
                 answerIndex: 0,
             }]
@@ -34,7 +34,7 @@
         {#if i === activeIndex}
             <button class="join-item btn btn-active">{i}</button>
         {:else}
-            <button class="join-item btn">{i}</button>
+            <button class="join-item btn" on:click={()=>{activeIndex=i}}>{i}</button>
         {/if}
     {/each}
 </div>
@@ -48,4 +48,7 @@
         <input type="radio" name="radio-1" class="radio" />
     </p>
 {/each}
+<button class="btn btn-success">
+    Submit
+</button>
 

@@ -1,7 +1,7 @@
 <script>
     import '../../app.css';
 </script>
-<div class="min-h-screen flex items-center justify-center">
+<div class="min-h-screen flex items-center justify-center ">
     <div class="flex flex-col gap-4 rounded-box bg-base-200 p-6 sm:max-w-md content-center">
         <h1 class="text-3xl font-bold self-center">Log in</h1>
 
