@@ -4,10 +4,7 @@ import type { Config } from 'tailwindcss';
 
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
-
-	theme: {
-		extend: {}
-	},
+	themes: ["dark"],
 
 	plugins: [typography, forms, require('daisyui')]
 } satisfies Config;
