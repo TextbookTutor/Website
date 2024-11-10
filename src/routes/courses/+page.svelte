@@ -1,11 +1,12 @@
-<script>
+<script lang="ts">
     // Sample data for courses
-    import {page} from "$app/stores";
+    let file: File;
+    const authorizedExtensions = ["pdf"];
+    let courses = [
+    {name:"Math 234", lastVisited:"2024-01-01", progress:"80%",id:"abc123"},
+            {name:"Math 232", lastVisited:"2024-01-01", progress:"80%", id:"123abc"},
+        ];
 
-        let courses = [
-        {name:"Math 234", lastVisited:"2024-01-01", progress:"80%",id:"abc123"},
-                {name:"Math 232", lastVisited:"2024-01-01", progress:"80%", id:"123abc"},
-            ];
 </script>
 
 
@@ -43,5 +44,33 @@
         {/each}
         </tbody>
     </table>
+<!--    <a href="#createmodal">-->
+<!--        <button class="btn btn-primary">-->
+<!--            Create New Course-->
+<!--        </button>-->
+<!--    </a>-->
+    <button class="btn btn-primary" onclick={()=>my_modal_1.showModal()}>Upload PDF</button>
+    <dialog id="my_modal_1" class="modal">
+        <div class="modal-box">
+            <h3 class="text-lg font-bold">Upload your textbook pdf</h3>
+            <p>
+                &nbsp;
+            </p>
+            <input
+                    bind:value={file}
+                    accept={'.pdf'}
+                    type="file"
+                    class="file-input file-input-bordered file-input-secondary w-full max-w-xs"
+            />
+            <div class="modal-action">
+                <button class="btn btn-success" onclick={()=>{console.log(typeof file)}}>Upload</button>
+
+                <form method="dialog">
+                    <button class="btn btn-error">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
 </div>
+
 

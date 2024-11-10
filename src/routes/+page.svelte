@@ -1,13 +1,15 @@
 <script>
     import Login from "$lib/Components/Login.svelte";
-    let loggedIn = true;
+    import { page } from "$app/stores";
+    import {goto} from "$app/navigation";
+    $: loggedIn = $page.data.session != null;
+    console.log($page.data.session);
 </script>
-
 
 <div class="content-center">
 
     {#if !loggedIn}
-        <Login/>
+        {goto('/auth/signin', { replaceState: true })}
 
     {:else }
         <div

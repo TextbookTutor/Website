@@ -1,11 +1,12 @@
 // This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb
 import { MongoClient, ServerApiVersion } from "mongodb"
+import { MONGODB_URI } from '$env/static/private';
 
-if (!process.env.MONGODB_URI) {
+if (!MONGODB_URI) {
     throw new Error('Invalid/Missing environment variable: "MONGODB_URI"')
 }
 
-const uri = process.env.MONGODB_URI
+const uri = MONGODB_URI;
 const options = {
     serverApi: {
         version: ServerApiVersion.v1,
@@ -34,4 +35,4 @@ if (process.env.NODE_ENV === "development") {
 
 // Export a module-scoped MongoClient. By doing this in a
 // separate module, the client can be shared across functions.
-export default client
+export default client;

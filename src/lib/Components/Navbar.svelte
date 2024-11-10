@@ -1,18 +1,19 @@
 <script>
     let loggedIn = true;
+    import { SignOut } from "@auth/sveltekit/components";
     import '../../app.css';
 
 </script>
 
 <div class="navbar bg-base-100">
     <div class="flex-1">
-        <a class="btn btn-ghost text-xl" href="/">📚Textbook Tutor</a>
+        <a class="btn btn-ghost text-xl" href="/">📚 Textbook Tutor</a>
     </div>
     <div class="flex-none">
         <ul class="menu menu-horizontal px-1">
             {#if loggedIn}
                 <li>
-                    <a>
+                    <a href="#modal">
                         🔥&nbsp 1
                     </a>
                 </li>
@@ -22,7 +23,11 @@
                             <summary>Account</summary>
                             <ul class="bg-base-100 rounded-t-none p-2">
                                 <li><a>Settings</a></li>
-                                <li><a>Log Out</a></li>
+                                <li>
+                                    <SignOut>
+                                    <span slot="submitButton">Log Out</span>
+                                    </SignOut>
+                                </li>
                             </ul>
                     </details>
                 </li>
@@ -34,4 +39,12 @@
     </div>
 </div>
 
-
+<div class="modal" role="dialog" id="modal">
+    <div class="modal-box">
+        <h3 class="text-lg font-bold">You Have a One Day Streak.</h3>
+        <p class="py-4">Keep it going!</p>
+        <div class="modal-action">
+            <a href="#" class="btn">Exit</a>
+        </div>
+    </div>
+</div>
