@@ -10,7 +10,7 @@
     ];
     let courses2;
     onMount(async () => {
-        courses2 = await fetch("/getdata").then((res) => res.json());
+        courses2 = await fetch("https://localhost:8000/getdata").then((res) => res.json());
     })
 </script>
 
