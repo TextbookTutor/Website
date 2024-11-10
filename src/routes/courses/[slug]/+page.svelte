@@ -54,7 +54,7 @@
                             <td>50%</td>
                             <td/>
                             <td>
-                                <a href="courses//quiz">
+                                <a href="/courses/{$page.params.slug}/quiz">
                                     <button class="btn btn-success">
                                         Start
                                     </button>

@@ -1,7 +1,13 @@
 <script>
+
     let loggedIn = true;
     import { SignOut } from "@auth/sveltekit/components";
     import '../../app.css';
+
+
+    function delay (URL) {
+        setTimeout( function() { window.location = URL }, 500 );
+    }
 
 </script>
 
@@ -24,9 +30,11 @@
                             <ul class="bg-base-100 rounded-t-none p-2">
                                 <li><a>Settings</a></li>
                                 <li>
-                                    <SignOut>
-                                    <span slot="submitButton">Log Out</span>
-                                    </SignOut>
+                                    <a on:click={()=>{delay('/auth/signin')}}>
+                                        <SignOut>
+                                            <span slot="submitButton">Log Out</span>
+                                        </SignOut>
+                                    </a>
                                 </li>
                             </ul>
                     </details>

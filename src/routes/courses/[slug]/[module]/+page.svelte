@@ -27,6 +27,10 @@
             },
         ]
     }
+    // let module = {
+    //     moduleType: "frq",
+    //     question: "Why is the sky blue?"
+    // }
     let activeIndex = 0;
     let selectedAnswer = -1;
     let questionsAnswered: number[] = [];
@@ -157,50 +161,9 @@
         background-color: #316bc7;
     }
 </style>
-
-{#if !complete}
-<div class="quiz-container">
-    <div class="join">
-        {#each {length: module.questions.length} as _, i}
-            {#if i === activeIndex}
-                <button class="join-item btn btn-active">{i + 1}</button>
-            {:else}
-                <button class="join-item btn" on:click={() => { activeIndex = i }}>{i + 1}</button>
-            {/if}
-        {/each}
-    </div>
-
-    <h1 class="question">
-        {module.questions[activeIndex].question}
-    </h1>
-    {#if !questionsAnswered.includes(activeIndex)}
-        {#each module.questions[activeIndex].questionOptions as option, i}
-            <div class="option">
-                <input on:click={()=>{selectedAnswer=i}} type="radio" name="radio-{activeIndex}" id="option-{i}" class="radio"/>
-                <label for="option-{i}">{option}</label>
-            </div>
-        {/each}
-        <button class="submit-btn" on:click={handleResponse}>
-            Submit
-        </button>
-    {:else}
-        {#each module.questions[activeIndex].questionOptions as option, i}
-            <div class="option">
-                <input type="radio" name="radio-{activeIndex}" id="option-{i}" class="radio radio-error" disabled/>
-                <label for="option-{i}">{option}</label>
-            </div>
-        {/each}
-    {/if}
-</div>
-{:else }
+{#if module.moduleType === 'quiz'}
+    {#if !complete}
     <div class="quiz-container">
-        <h1>
-            Score Report:
-        </h1>
-        <div class="radial-progress text-primary" style="--value:{scoreNumeric()};" role="progressbar">{scoreNumeric()}%</div>
-        <p>
-            {scoreReport()}
-        </p>
         <div class="join">
             {#each {length: module.questions.length} as _, i}
                 {#if i === activeIndex}
@@ -211,17 +174,66 @@
             {/each}
         </div>
 
-        {#each module.questions[activeIndex].questionOptions as option, i}
-            {#if module.questions[activeIndex].answerIndex === i}
-                <div class="correct">
-                    {option}
+        <h1 class="question">
+            {module.questions[activeIndex].question}
+        </h1>
+        {#if !questionsAnswered.includes(activeIndex)}
+            {#each module.questions[activeIndex].questionOptions as option, i}
+                <div class="option">
+                    <input on:click={()=>{selectedAnswer=i}} type="radio" name="radio-{activeIndex}" id="option-{i}" class="radio"/>
+                    <label for="option-{i}">{option}</label>
                 </div>
-            {:else}
-                <div class="incorrect">
-                    {option}
+            {/each}
+            <button class="submit-btn" on:click={handleResponse}>
+                Submit
+            </button>
+        {:else}
+            {#each module.questions[activeIndex].questionOptions as option, i}
+                <div class="option">
+                    <input type="radio" name="radio-{activeIndex}" id="option-{i}" class="radio radio-error" disabled/>
+                    <label for="option-{i}">{option}</label>
                 </div>
+            {/each}
+        {/if}
+    </div>
+    {:else }
+        <div class="quiz-container">
+            <h1>
+                Score Report:
+            </h1>
+            <div class="radial-progress text-primary" style="--value:{scoreNumeric()};" role="progressbar">{scoreNumeric()}%</div>
+            <p>
+                {scoreReport()}
+            </p>
+            <div class="join">
+                {#each {length: module.questions.length} as _, i}
+                    {#if i === activeIndex}
+                        <button class="join-item btn btn-active">{i + 1}</button>
+                    {:else}
+                        <button class="join-item btn" on:click={() => { activeIndex = i }}>{i + 1}</button>
+                    {/if}
+                {/each}
+            </div>
 
-            {/if}
-        {/each}
+            {#each module.questions[activeIndex].questionOptions as option, i}
+                {#if module.questions[activeIndex].answerIndex === i}
+                    <div class="correct">
+                        {option}
+                    </div>
+                {:else}
+                    <div class="incorrect">
+                        {option}
+                    </div>
+
+                {/if}
+            {/each}
+        </div>
+    {/if}
+{:else}
+    <div class="quiz-container">
+        <h1>
+            here
+            <!--{module.question}-->
+        </h1>
     </div>
 {/if}

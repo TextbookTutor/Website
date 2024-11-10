@@ -5,20 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6d1af87-d111-433c-85f0-d765b77d8a8b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/hooks.server.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/+error.svelte" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/+layout.server.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/signout/+page.server.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/signout/+page.svelte" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/index.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/courses/+page.server.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/courses/+server.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vercel.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/eslint.config.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks.server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks.server.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/Components/Navbar.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/Components/Navbar.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/db.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/db.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+page.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/+error.svelte" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/courses/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/courses/+page.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/courses/[slug]/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/courses/[slug]/+page.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/courses/[slug]/[module]/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/courses/[slug]/[module]/+page.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/signin/+page.server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/signin/+page.server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/signout/+page.server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/signout/+page.server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/vite.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,9 +37,9 @@
         <option value="Login.svelte" />
         <option value="+page.svelte" />
         <option value="+page.server.ts" />
-        <option value="TypeScript File" />
         <option value="+page" />
         <option value="+error.svelte" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -44,6 +50,9 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2oclpHD83rrs3e0iTNx3f8z9AmC" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -64,6 +73,9 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/.svelte-kit" />
+      <recent name="$PROJECT_DIR$/src/routes/courses" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
@@ -82,7 +94,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1731176925763</updated>
-      <workItem from="1731176926824" duration="24891000" />
+      <workItem from="1731176926824" duration="34476000" />
     </task>
     <servers />
   </component>

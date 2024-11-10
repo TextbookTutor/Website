@@ -52,19 +52,12 @@
     <button class="btn btn-primary" onclick={()=>my_modal_1.showModal()}>Upload PDF</button>
     <dialog id="my_modal_1" class="modal">
         <div class="modal-box">
-            <h3 class="text-lg font-bold">Upload your textbook pdf</h3>
-            <p>
-                &nbsp;
-            </p>
-            <input
-                    bind:value={file}
-                    accept={'.pdf'}
-                    type="file"
-                    class="file-input file-input-bordered file-input-secondary w-full max-w-xs"
-            />
-            <div class="modal-action">
-                <button class="btn btn-success" onclick={()=>{console.log(typeof file)}}>Upload</button>
 
+            <div class="modal-action">
+                <form action="?/avatar" method="post" enctype="multipart/form-data">
+                    <input type="file" name="avatar" placeholder="avatar" />
+                    <button class="btn btn-success" type="submit">Upload</button>
+                </form>
                 <form method="dialog">
                     <button class="btn btn-error">Close</button>
                 </form>
