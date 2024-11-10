@@ -127,7 +127,7 @@
         padding: 1rem;
         text-align: left;
         background-color: rgb(31, 41, 55);
-        border: 4   px solid transparent;
+        border: 4px solid transparent;
         border-radius: 0.5rem;
         color: #fff;
         cursor: pointer;
