@@ -21,7 +21,7 @@ export const actions: Actions = {
 			formData.append('file', new Blob([await (data.avatar as Blob).arrayBuffer()]), data.avatar.name);
 
 // Send the file via POST request
-			let response = await fetch('http://localhost:8000/gencourse', {
+			let response = await fetch('http://127.0.0.1:8000/gencourse', {
 				method: 'POST',
 				body: formData
 			});
