@@ -6,8 +6,7 @@ const config = {
 	server: {
 		fs: {
 			allow: [searchForWorkspaceRoot(process.cwd()), "/static/avatars/"]
-		},
-		https: true,
+		}
 	},
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
