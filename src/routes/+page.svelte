@@ -2,16 +2,15 @@
     import Login from "$lib/Components/Login.svelte";
     import { page } from "$app/stores";
     import {goto} from "$app/navigation";
-    $: loggedIn = $page.data.session != null;
-    console.log($page.data.session);
+    import {onMount} from "svelte";
+    onMount(()=>{
+        if ($page.data.session == null)
+        goto('/auth/signin', { replaceState: true });
+    })
 </script>
 
 <div class="content-center">
 
-    {#if !loggedIn}
-        {goto('/auth/signin', { replaceState: true })}
-
-    {:else }
         <div
                 class="hero min-h-screen"
                 style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);">
@@ -28,5 +27,4 @@
                 </div>
             </div>
         </div>
-    {/if}
 </div>
