@@ -61,7 +61,7 @@
         <div class="modal-box">
 
             <div class="modal-action">
-                <form action="/" method="post" enctype="multipart/form-data">
+                <form action="?/avatar" method="POST" enctype="multipart/form-data">
                     <input type="file" name="avatar" placeholder="avatar" />
                     <button class="btn btn-success" type="submit">Upload</button>
                 </form>
