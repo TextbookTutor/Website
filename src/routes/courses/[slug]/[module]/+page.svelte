@@ -1,239 +1,374 @@
 <script lang="ts">
     import '../../../../app.css';
-
     import {page} from '$app/stores';
+    import {onMount} from "svelte";
 
-    let module = {
-        moduleType: "quiz",
-        questions: [{
-            question: "What is 2+2?",
-            questionOptions: ["4", "3", "5", "2"],
-            answerIndex: 0,
-        },
-            {
-                question: "What is 2+3?",
-                questionOptions: ["4", "3", "5", "2"],
-                answerIndex: 0,
-            },
-            {
-                question: "What is 2+1?",
-                questionOptions: ["4", "3", "5", "2"],
-                answerIndex: 0,
-            },
-            {
-                question: "What is 2+0?",
-                questionOptions: ["4dsdsf", "3", "5", "2"],
-                answerIndex: 0,
-            },
-        ]
-    }
-    // let module = {
-    //     moduleType: "frq",
-    //     question: "Why is the sky blue?"
-    // }
+    let chapters;
+    let chapter;
+    let module;
+    let name;
+    let answersInputed;
+    let complete = false;
+    let moduleType = $page.params.module.split('-')[0];
+    let completions;
+
+    onMount(async () => {
+        let courses2 = await fetch("/getdata").then((res) => res.json());
+        chapters = courses2.find(course => course._id.$oid === $page.params.slug).chapters;
+        chapter = chapters.find(chapter => chapter.chapter_title === decodeURIComponent($page.params.module.split('-')[1]));
+        module = chapter.sections[$page.params.module.split('-')[2]];
+        name = courses2.find(course => course._id.$oid === $page.params.slug).course_title;
+        answersInputed = new Array(module.mcqs.length);
+        completions = JSON.parse(localStorage.getItem(`textbook-tutor-${$page.params.slug}`));
+    });
+
     let activeIndex = 0;
     let selectedAnswer = -1;
     let questionsAnswered: number[] = [];
-    let answersInputed = new Array(module.questions.length);
-    function handleResponse(){
-        if (selectedAnswer!= -1) {
+
+    function handleResponse() {
+        if (selectedAnswer !== -1) {
             questionsAnswered.push(activeIndex);
             questionsAnswered = questionsAnswered;
             answersInputed[activeIndex] = selectedAnswer;
-            console.log(answersInputed);
+
+            // Auto-advance to next question if not on last question
+            if (activeIndex < module.mcqs.length - 1) {
+                activeIndex++;
+                selectedAnswer = -1;
+            } else {
+                complete = true;
+            }
         }
-        selectedAnswer = -1;
     }
-    function scoreReport(){
+
+    function scoreReport() {
         let correct = 0;
         for (let i = 0; i < answersInputed.length; i++) {
-            if (answersInputed[i] === module.questions[i].answerIndex) {
+            if (answersInputed[i] === module.mcqs[i].answer) {
                 correct++;
             }
         }
-        return "You got " + correct + "/" + answersInputed.length + " answers correct.";
+        completions.find(chapter => chapter.title === $page.params.module.split('-')[1])
+            .sections[+$page.params.module.split('-')[2]].score = scoreNumeric();
+        localStorage.setItem(`textbook-tutor-${$page.params.slug}`, JSON.stringify(completions));
+        return `You got ${correct}/${answersInputed.length} answers correct.`;
     }
 
-    function scoreNumeric(){
+    function scoreNumeric() {
         let correct = 0;
         for (let i = 0; i < answersInputed.length; i++) {
-            if (answersInputed[i] === module.questions[i].answerIndex) {
+            if (answersInputed[i] === module.mcqs[i].answer) {
                 correct++;
             }
         }
-
-        return correct/answersInputed.length*100;
+        return Math.trunc(correct/answersInputed.length*100);
     }
-    console.log(questionsAnswered.length);
-    console.log(module.questions.length);
-    $: complete = (questionsAnswered.length == module.questions.length);
 
+    function getModuleQuestionLength() {
+        if (module) return module.mcqs.length;
+        return 10;
+    }
+
+    $: complete = (questionsAnswered.length === getModuleQuestionLength());
 </script>
 
+<!-- Quiz styles -->
 <style>
     .quiz-container {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #0e151a;
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: rgb(17, 24, 39);
         color: #f5f5f5;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     }
 
-    .join {
+    .question-nav {
         display: flex;
         justify-content: center;
-        margin-bottom: 20px;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
     }
 
-    .join-item {
-        padding: 10px;
-        margin: 0 5px;
-        background-color: #333;
-        color: #f5f5f5;
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-        cursor: pointer;
-    }
-
-    .btn-active {
-        background-color: #3a82f7;
+    .nav-button {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 0.5rem;
+        background-color: rgb(31, 41, 55);
         color: #fff;
-        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .nav-button.active {
+        background-color: rgb(59, 130, 246);
     }
 
     .question {
         text-align: center;
         font-size: 1.5rem;
-        margin-bottom: 15px;
-    }
-
-    .option {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        background-color: #152233;
-        border-radius: 5px;
-        margin-bottom: 10px;
-    }
-
-    .correct {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        background-color: #00FF00;
-        border-radius: 5px;
-        margin-bottom: 10px;
-    }
-
-    .incorrect {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        background-color: #EE4B2B;
-        border-radius: 5px;
-        margin-bottom: 10px;
-    }
-
-    .option input[type="radio"] {
-        margin-right: 10px;
-        accent-color: #3a82f7;
-    }
-
-    .submit-btn {
-        display: block;
-        width: 100%;
-        padding: 12px;
-        font-size: 1.1rem;
-        background-color: #3a82f7;
+        font-weight: 500;
+        margin-bottom: 2rem;
         color: #fff;
-        border: none;
-        border-radius: 5px;
+    }
+
+    .options-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .option-button {
+        width: 100%;
+        padding: 1rem;
+        text-align: left;
+        background-color: rgb(31, 41, 55);
+        border: 4   px solid transparent;
+        border-radius: 0.5rem;
+        color: #fff;
         cursor: pointer;
-        margin-top: 20px;
+        transition: all 0.2s;
     }
 
-    .submit-btn:hover {
-        background-color: #316bc7;
+    .option-button:hover {
+        background-color: rgb(55, 65, 81);
     }
+
+    .option-button.selected {
+        border-color: rgb(96, 165, 250);
+    }
+
+    .option-button.correct {
+        background-color: rgb(22, 101, 52);
+    }
+
+    .option-button.incorrect {
+        background-color: rgb(185, 28, 28);
+    }
+
+    .score-container {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .score-text {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .submit-button {
+        width: 100%;
+        padding: 1rem;
+        background-color: rgb(59, 130, 246);
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .submit-button:hover {
+        background-color: rgb(37, 99, 235);
+    }
+
+    /* Quiz Container for FRQ */
+    .quiz-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: rgb(17, 24, 39);
+        color: #f5f5f5;
+        border-radius: 1rem;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    /* Title for FRQ Section */
+    .section-title {
+        font-size: 2rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    /* Free Response Questions Container */
+    .frq-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    /* Each Free Response Question */
+    .frq-item {
+        background-color: rgb(31, 41, 55);
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* FRQ Question Text */
+    .frq-question {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: #fff;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    /* Textarea for Answers */
+    .frq-input {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: none;
+        background-color: rgb(55, 65, 81);
+        color: #fff;
+        resize: vertical;
+        font-size: 1rem;
+        transition: background-color 0.2s;
+    }
+
+    /* Textarea on Focus */
+    .frq-input:focus {
+        background-color: rgb(31, 41, 55);
+        outline: none;
+    }
+
+    /* Submit Button */
+    .submit-button {
+        width: 100%;
+        padding: 1rem;
+        background-color: rgb(59, 130, 246);
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .submit-button:hover {
+        background-color: rgb(37, 99, 235);
+    }
+
+
 </style>
-{#if module.moduleType === 'quiz'}
-    {#if !complete}
-    <div class="quiz-container">
-        <div class="join">
-            {#each {length: module.questions.length} as _, i}
-                {#if i === activeIndex}
-                    <button class="join-item btn btn-active">{i + 1}</button>
-                {:else}
-                    <button class="join-item btn" on:click={() => { activeIndex = i }}>{i + 1}</button>
-                {/if}
-            {/each}
-        </div>
 
-        <h1 class="question">
-            {module.questions[activeIndex].question}
-        </h1>
-        {#if !questionsAnswered.includes(activeIndex)}
-            {#each module.questions[activeIndex].questionOptions as option, i}
-                <div class="option">
-                    <input on:click={()=>{selectedAnswer=i}} type="radio" name="radio-{activeIndex}" id="option-{i}" class="radio"/>
-                    <label for="option-{i}">{option}</label>
-                </div>
-            {/each}
-            <button class="submit-btn" on:click={handleResponse}>
-                Submit
-            </button>
-        {:else}
-            {#each module.questions[activeIndex].questionOptions as option, i}
-                <div class="option">
-                    <input type="radio" name="radio-{activeIndex}" id="option-{i}" class="radio radio-error" disabled/>
-                    <label for="option-{i}">{option}</label>
-                </div>
-            {/each}
-        {/if}
-    </div>
-    {:else }
+{#if module}
+    {#if moduleType === 'quiz'}
         <div class="quiz-container">
-            <h1>
-                Score Report:
-            </h1>
-            <div class="radial-progress text-primary" style="--value:{scoreNumeric()};" role="progressbar">{scoreNumeric()}%</div>
-            <p>
-                {scoreReport()}
-            </p>
-            <div class="join">
-                {#each {length: module.questions.length} as _, i}
-                    {#if i === activeIndex}
-                        <button class="join-item btn btn-active">{i + 1}</button>
+            {#if !complete}
+                <!-- Question navigation -->
+                <div class="question-nav">
+                    {#each {length: module.mcqs.length} as _, i}
+                        <button
+                                class="nav-button {i === activeIndex ? 'active' : ''}"
+                                on:click={() => activeIndex = i}
+                        >
+                            {i + 1}
+                        </button>
+                    {/each}
+                </div>
+
+                <!-- Question -->
+                <h2 class="question">
+                    {module.mcqs[activeIndex].question}
+                </h2>
+
+                <!-- Options -->
+                <div class="options-container">
+                    {#if !questionsAnswered.includes(activeIndex)}
+                        {#each module.mcqs[activeIndex].options as option, i}
+                            <button
+                                    class="option-button {selectedAnswer === i ? 'selected' : ''}"
+                                    on:click={() => selectedAnswer = i}
+                            >
+                                {option}
+                            </button>
+                        {/each}
+                        <button
+                                class="submit-button"
+                                on:click={handleResponse}
+                                disabled={selectedAnswer === -1}
+                        >
+                            Submit
+                        </button>
                     {:else}
-                        <button class="join-item btn" on:click={() => { activeIndex = i }}>{i + 1}</button>
+                        {#each module.mcqs[activeIndex].options as option, i}
+                            <button
+                                    class="option-button"
+                                    disabled={true}
+                            >
+                                {option}
+                            </button>
+                        {/each}
                     {/if}
+                </div>
+            {:else}
+                <!-- Score Report -->
+                <div class="score-container">
+                    <div class="radial-progress text-primary" style="--value:{scoreNumeric()};" role="progressbar">
+                        {scoreNumeric()}%
+                    </div>
+                    <p class="score-text">{scoreReport()}</p>
+                </div>
+
+                <!-- Review navigation -->
+                <div class="question-nav">
+                    {#each {length: module.mcqs.length} as _, i}
+                        <button
+                                class="nav-button {i === activeIndex ? 'active' : ''}"
+                                on:click={() => activeIndex = i}
+                        >
+                            {i + 1}
+                        </button>
+                    {/each}
+                </div>
+
+                <!-- Review answers -->
+                <div class="options-container">
+                    {#each module.mcqs[activeIndex].options as option, i}
+                        <button
+                                class="option-button {i === module.mcqs[activeIndex].answer ? 'correct' : 'incorrect'}"
+                                disabled={true}
+                        >
+                            {option}
+                        </button>
+                    {/each}
+                </div>
+            {/if}
+        </div>
+        <div class="flex justify-center items-center">
+            <a href="/courses/{$page.params.slug}">
+                <button class="btn btn-primary">{`<- Back to Modules`}</button>
+            </a>
+        </div>
+    {:else}
+        <div class="quiz-container">
+            <div class="options-container">
+                {#each module.frqs as frq, i}
+                    <div class="frq-item">
+                        <label for="response-{i}" class="frq-question">{frq.question}</label>
+                        <textarea
+                                id="response-{i}"
+                                class="frq-input"
+                                placeholder="Your answer here..."
+                                bind:value={frq.answer}
+                        ></textarea>
+                    </div>
                 {/each}
             </div>
+        </div>
 
-            {#each module.questions[activeIndex].questionOptions as option, i}
-                {#if module.questions[activeIndex].answerIndex === i}
-                    <div class="correct">
-                        {option}
-                    </div>
-                {:else}
-                    <div class="incorrect">
-                        {option}
-                    </div>
-
-                {/if}
-            {/each}
+        <div class="flex justify-center items-center min-h-screen">
+            <a href="/courses/{$page.params.slug}">
+                <button class="btn btn-primary">{`<- Back to Modules`}</button>
+            </a>
         </div>
     {/if}
-{:else}
-    <div class="quiz-container">
-        <h1>
-            here
-            <!--{module.question}-->
-        </h1>
-    </div>
 {/if}

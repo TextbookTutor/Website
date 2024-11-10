@@ -1,69 +1,97 @@
 <script lang="ts">
     // Sample data for courses
-    let file: File;
+    import {onMount} from "svelte";
+
+    let file;
     const authorizedExtensions = ["pdf"];
     let courses = [
-    {name:"Math 234", lastVisited:"2024-01-01", progress:"80%",id:"abc123"},
-            {name:"Math 232", lastVisited:"2024-01-01", progress:"80%", id:"123abc"},
-        ];
-
+        {name:"Math 234", lastVisited:"2024-01-01", progress:"80%",id:"abc123"},
+        {name:"Math 232", lastVisited:"2024-01-01", progress:"80%", id:"123abc"},
+    ];
+    let courses2;
+    onMount(async () => {
+        courses2 = await fetch("/getdata").then((res) => res.json());
+    })
 </script>
 
+<div class="min-h-screen bg-base-200 p-8">
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-4xl font-bold text-center mb-12 dark:text-white">
+            Courses
+        </h1>
 
-<h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl px-5 lg:text-6xl dark:text-white">
-    Courses
-</h1>
+        <div class="card bg-base-100 shadow-xl">
+            <div class="card-body p-6">
+                <div class="overflow-x-auto">
+                    <table class="table w-full">
+                        <!-- Table header -->
+                        <thead>
+                        <tr class="bg-base-200">
+                            <th class="text-base">Textbook Name</th>
+                            <th class="text-base text-center">Chapters</th>
+                            <th class="text-base text-center">Sections</th>
+                            <th class="text-base text-center">Actions</th>
+                        </tr>
+                        </thead>
 
-<div class="overflow-x-auto content-center px-5">
-    <table class="table table-zebra w-mid">
-        <thead>
-        <tr>
-            <th>Textbook Name</th>
-            <th>Progress</th>
-            <th>Last Visited</th>
-        </tr>
-        </thead>
+                        <!-- Table body -->
+                        <tbody>
+                        {#if courses2}
+                            {#each courses2 as course}
+                                <tr class="hover:bg-base-200 transition-colors">
+                                    <td class="font-medium">{course.course_title}</td>
+                                    <td class="text-center">{course.chapters.length}</td>
+                                    <td class="text-center">
+                                        {course.chapters.reduce((acc, cur) => acc + cur.sections.length, 0)}
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="/courses/{course._id.$oid}">
+                                            <button class="btn btn-success btn-sm">
+                                                Open
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {/each}
+                        {/if}
+                        </tbody>
+                    </table>
+                </div>
 
-        <tbody>
-        {#each courses as course}
-            <tr>
-                <td>{course.name}</td>
-                <td>{course.progress}</td>
-                <td>{course.lastVisited}</td>
-                <td>
-                    <a href="/courses/{course.id}">
-                        <button class="btn btn-success">
-                            Open
-                        </button>
-                    </a>
-                    <button class="btn btn-warning">
-                    Delete
+                <!-- Action buttons -->
+                <div class="flex justify-center gap-4 mt-6">
+                    <button
+                            class="btn btn-primary"
+                            onclick={()=>my_modal_1.showModal()}
+                    >
+                        Upload PDF
                     </button>
-                </td>
-            </tr>
-        {/each}
-        </tbody>
-    </table>
-<!--    <a href="#createmodal">-->
-<!--        <button class="btn btn-primary">-->
-<!--            Create New Course-->
-<!--        </button>-->
-<!--    </a>-->
-    <button class="btn btn-primary" onclick={()=>my_modal_1.showModal()}>Upload PDF</button>
-    <dialog id="my_modal_1" class="modal">
-        <div class="modal-box">
-
-            <div class="modal-action">
-                <form action="?/avatar" method="post" enctype="multipart/form-data">
-                    <input type="file" name="avatar" placeholder="avatar" />
-                    <button class="btn btn-success" type="submit">Upload</button>
-                </form>
-                <form method="dialog">
-                    <button class="btn btn-error">Close</button>
-                </form>
+                </div>
             </div>
         </div>
-    </dialog>
+    </div>
 </div>
 
+<!-- Upload Modal -->
+<dialog id="my_modal_1" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4">Upload PDF Document</h3>
+        <div class="modal-action flex flex-col gap-4">
+            <form action="?/avatar" method="post" enctype="multipart/form-data" class="w-full">
+                <div class="form-control w-full mb-4">
+                    <input
+                            type="file"
+                            name="avatar"
+                            placeholder="avatar"
+                            class="file-input file-input-bordered w-full"
+                    />
+                </div>
+                <div class="flex justify-end gap-2">
+                    <button class="btn btn-success" type="submit">Upload</button>
 
+                        <button class="btn btn-error">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</dialog>

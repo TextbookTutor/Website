@@ -12,8 +12,7 @@ export const POST = (async ({ request, url }) => {
             "avatars",
             `${crypto.randomUUID()}.${((data.avatar as Blob).type.split("/")[1])}`
         );
-        await fs.writeFile(filePath, Buffer.from(await (data.avatar as Blob).arrayBuffer()))
-        // TODO: store the file path in database for further references.
+        // await fs.writeFile(filePath, Buffer.from(await (data.avatar as Blob).arrayBuffer()));
         return new Response(String({path: filePath}))
     } catch (err) {
         throw fail(500, { err: err })
