@@ -11,7 +11,7 @@ export const { handle, signIn, signOut } = SvelteKitAuth(async (event) => {
 		adapter: MongoDBAdapter(client),
 		providers: [Google],
 		secret: AUTH_SECRET,
-		trustHost: true
+		trustHost: true,
 	};
 	return authOptions;
 });
