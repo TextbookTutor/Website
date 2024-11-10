@@ -80,6 +80,7 @@
             <form action="?/avatar" method="post" enctype="multipart/form-data" class="w-full">
                 <div class="form-control w-full mb-4">
                     <input
+                            accept=".pdf"
                             type="file"
                             name="avatar"
                             placeholder="avatar"
@@ -87,7 +88,7 @@
                     />
                 </div>
                 <div class="flex justify-end gap-2">
-                    <button class="btn btn-success" type="submit">Upload</button>
+                    <button class="btn btn-success" onclick={()=>my_modal_1.close()} type="submit">Upload</button>
 
                         <button class="btn btn-error">Cancel</button>
                 </div>
